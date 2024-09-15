@@ -1,13 +1,13 @@
+import MainRoutes from "./Routes/MainRoutes"
 
-import SignupForm from "./pages/authcomponents/Signup"
+
 
 function App() {
 
 
   return (
     <>
-    <SignupForm/>
-     
+    <MainRoutes/> 
     </>
   )
 }
