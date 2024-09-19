@@ -1,5 +1,5 @@
-import SignInPage from "@/pages/authcomponents/Signin";
-import SignupPage from "@/pages/authcomponents/Signup";
+import SignInPage from "@/pages/Auth/Signin";
+import SignupPage from "@/pages/Auth/Signup";
 import { Route, Routes } from "react-router-dom";
 
 
