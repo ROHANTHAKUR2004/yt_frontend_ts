@@ -3,11 +3,37 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card"
 import logo from "../../assets/logo.png"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { AppDispatch } from "@/Redux/store"
+import { login } from "@/Redux/Slices/AuthSlice"
 export default function SignInPage() {
+
+
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+  const [signindetails, setsignindetails] = useState({
+     email : "",
+     password : "",
+  })
+
+  const handleformchange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    setsignindetails({
+     ...signindetails,
+     [name] : value
+   })
+  }
+
+
   async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault()
- 
+     event.preventDefault()
+     const response = await dispatch(login(signindetails));
+     if(response?.meta?.arg?.email){
+         navigate("")
+     }
+    
   }
   return (
     
@@ -33,9 +59,13 @@ export default function SignInPage() {
                <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input 
+                 name="email"  
                 className="text-white"
+                onChange={handleformchange}
+                value={signindetails.email}
                 id="email" 
                 type="email" 
+                
                 placeholder="rohan@example.com"
                  required />
               </div>
@@ -43,7 +73,10 @@ export default function SignInPage() {
                 <Label htmlFor="password">Password</Label>
                 <Input
                 className="text-white"
+                name="password"  
                  id="password"
+                 onChange={handleformchange}
+                value={signindetails.password}
                  placeholder='****' 
                  type="password" 
                  required

@@ -1,5 +1,6 @@
 export default interface User {
    loading : boolean,
    status  : boolean,
-   userdata : object,
+   username : string,
+   token : string
 }
