@@ -1,5 +1,6 @@
 import SignInPage from "@/pages/Auth/Signin";
 import SignupPage from "@/pages/Auth/Signup";
+import VideoDashboard from "@/pages/VideoDashboard";
 import { Route, Routes } from "react-router-dom";
 
 
@@ -8,6 +9,7 @@ export default function MainRoutes() {
     <Routes>
         <Route path="/signup" element={<SignupPage/>} />
         <Route path="/signin" element={<SignInPage/>}/>
-    </Routes>
+        <Route path="/dash" element={<VideoDashboard/>}/>
+   </Routes>
   )
 }

@@ -4,19 +4,22 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card"
 import logo from "../../assets/logo.png"
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch } from "@/Redux/store"
 import { login } from "@/Redux/Slices/AuthSlice"
+import { stat } from "fs"
 export default function SignInPage() {
 
 
   const dispatch: AppDispatch = useDispatch();
+  const st = useSelector((state : unknown) => state.auth);
   const navigate = useNavigate();
   const [signindetails, setsignindetails] = useState({
      email : "",
      password : "",
   })
+
 
   const handleformchange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -29,14 +32,16 @@ export default function SignInPage() {
 
   async function onSubmit(event: React.SyntheticEvent) {
      event.preventDefault()
-     const response = await dispatch(login(signindetails));
-     if(response?.meta?.arg?.email){
-         navigate("")
-     }
-    
+     const response = await dispatch(login(signindetails)); 
   }
+
+    useEffect(() => {
+        if(st.status == true){
+          navigate("/dash")
+        }
+    });
+
   return (
-    
     <div className="container   mt-20  px-4 py-8 flex justify-center items-center max-h-[100vh]">
       <Card className="w-full bg-gray-600  max-w-md lg:max-w-md h-full flex flex-col justify-between">
         <CardHeader className="space-y-1">
