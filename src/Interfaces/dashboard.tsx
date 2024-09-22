@@ -1,5 +1,6 @@
 export default interface dashboard {
     loading : boolean,
     status  : boolean,
-    data : object
+    data : object,
+    channelstats : object
  }
