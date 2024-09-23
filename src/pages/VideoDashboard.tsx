@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getallchannelvideos, getchannelstats } from "@/Redux/Slices/Dashboard";
 import time from "@/helper/time";
+import { Link } from "react-router-dom";
 
 
 interface Video {
@@ -43,12 +44,15 @@ export default function VideoDashboard() {
   return (
     <div>
       <Navbar />
-      <div className="container mt-8 mx-auto px-4 py-8">
+      <div 
+      className="container mt-8 mx-auto px-4 py-8">
         <h1 className="text-2xl text-red-700 font-bold mb-6">Recommended Videos</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2
+          lg:grid-cols-5 gap-6">
           {videos.length > 0 ? (
             videos.map((video) => (
               <div key={video._id} className="bg-gray-700 rounded-lg shadow-md overflow-hidden">
+                 <Link to={`/video/${video._id}`}>
                 <div className="aspect-w-16 aspect-h-8"> 
                   <img
                     src={video.thumbnail}
@@ -73,6 +77,7 @@ export default function VideoDashboard() {
                     </div>
                   </div>
                 </div>
+                </Link>
               </div>
             ))
           ) : (
