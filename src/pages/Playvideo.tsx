@@ -76,7 +76,7 @@ export default function Playvideo() {
               </Avatar>
               <div>
                 <p className="font-semibold text-gray-200">{cannelstats[0]?.fullname}</p>
-                <p className="text-sm text-gray-400">{cannelstats[0]?.subsInfo > 0}  Subscribers</p>
+                <p className="text-sm text-gray-400">{cannelstats[0]?.subsInfo} Subscribers</p>
               </div>
               <Button
                 variant={isSubscribed ? "outline" : "default"}
