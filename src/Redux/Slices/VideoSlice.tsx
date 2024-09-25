@@ -3,7 +3,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     videodata : {},
-    comment : []
+    comment : [],
+   
 }
 
 export const videodetials = createAsyncThunk("/video/id", async (id) => {  
@@ -14,6 +15,19 @@ export const videodetials = createAsyncThunk("/video/id", async (id) => {
     } catch (error) {
         console.log(error);
     }
+})
+
+export const addcomment = createAsyncThunk('/add/comment', async({id, content}) =>{
+   try {
+      const response = await axiosinstance.post(`comments/${id}`, {
+        content : content
+      });
+     
+      return response.data.data;
+     
+   } catch (error) {
+      console.log(error);
+   }
 })
 
 export const getcommentdata  = createAsyncThunk("/comenent/id", async(id) => {
