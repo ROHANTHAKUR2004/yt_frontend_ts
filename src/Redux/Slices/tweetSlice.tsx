@@ -9,7 +9,8 @@ export const getusertweet = createAsyncThunk("/get/tweet", async(id) => {
 
     try {
         const response = await axiosinstance.get(`tweet/user/${id}`);
-        console.log(response);
+        console.log(response.data.data);
+        return response.data.data;
     } catch (error) {
          console.log(error);
     }
@@ -18,12 +19,15 @@ export const getusertweet = createAsyncThunk("/get/tweet", async(id) => {
 
 
 
+// eslint-disable-next-line react-refresh/only-export-components
 const TweetSlice = createSlice({
     name : 'tweet',
     initialState,
     reducers : {},
-    extraReducers : () => {
-
+    extraReducers : (builder) => {
+         builder.addCase(getusertweet.fulfilled, (state,action) => {
+            state.tweetdata = action.payload;
+         })
     }
 })
 

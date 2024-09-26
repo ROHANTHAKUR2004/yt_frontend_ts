@@ -3,18 +3,19 @@ import dashboard from "@/Interfaces/dashboard";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 
+
 const initialState : dashboard  = {
     loading : false,
     status : false,
     data : {},
     channelstats : {},
+    currentuser : {}
 }
 
 export const getchannelstats = createAsyncThunk("/dashboard/stats", async () =>{
 
   try {
       const response  = await axiosinstance.get('/dashboard/stats');
-     
       return response.data.data;
       
 
@@ -24,7 +25,16 @@ export const getchannelstats = createAsyncThunk("/dashboard/stats", async () =>{
 
 });
 
+export const getcurrentuser = createAsyncThunk("/get/user", async () =>{
+  try {
+    const response = await axiosinstance.get('/users/currentuser');
+    console.log(response.data.data);
+    return response.data.data;
 
+  } catch (error) {
+      console.log(error);
+  }
+})
 
 export const getallchannelvideos = createAsyncThunk("/dashboard/videos" , async () =>{
     try {
@@ -65,6 +75,9 @@ const dashboradSlice = createSlice({
             state.loading = false;
             state.status = false;
           });
+          builder.addCase(getcurrentuser.fulfilled, (state, action) => {
+            state.currentuser = action.payload;
+          })
     }
 
 });

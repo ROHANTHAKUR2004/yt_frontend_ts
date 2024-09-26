@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { MessageCircle, Heart, Share2, Edit2, Trash2 } from 'lucide-react'
 import Navbar from './Navbar'
+import { AppDispatch, RootState } from '@/Redux/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { getcurrentuser } from '@/Redux/Slices/Dashboard'
+import { getusertweet } from '@/Redux/Slices/tweetSlice'
 
 interface Tweet {
   id: number;
@@ -14,6 +18,20 @@ interface Tweet {
 }
 
 export default function TweetPage() {
+
+  const dispatch: AppDispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.dash.currentuser);
+  useEffect(() => {
+    
+    dispatch(getcurrentuser());
+  }, [dispatch]);
+  
+  useEffect(() => {
+    if (user && user._id) {
+      dispatch(getusertweet(user._id));
+    }
+  }, [dispatch, user]);
+
   const [tweets, setTweets] = useState<Tweet[]>([
     { id: 1, content: "Hello, Twitter!", author: "John Doe", timestamp: "2 hours ago" },
     { id: 2, content: "React is awesome!", author: "Jane Smith", timestamp: "1 hour ago" },

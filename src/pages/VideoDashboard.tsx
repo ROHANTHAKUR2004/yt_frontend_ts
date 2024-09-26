@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getallchannelvideos, getchannelstats } from "@/Redux/Slices/Dashboard";
+import { getallchannelvideos, getchannelstats, getcurrentuser } from "@/Redux/Slices/Dashboard";
 import time from "@/helper/time";
 import { Link } from "react-router-dom";
 
@@ -33,6 +33,7 @@ export default function VideoDashboard() {
   useEffect(() => {
     dispatch(getallchannelvideos());
     dispatch(getchannelstats());
+    dispatch(getcurrentuser());
   }, [dispatch]);
 
   useEffect(() => {
