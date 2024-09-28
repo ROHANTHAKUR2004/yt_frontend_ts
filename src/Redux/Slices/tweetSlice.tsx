@@ -9,13 +9,51 @@ export const getusertweet = createAsyncThunk("/get/tweet", async(id) => {
 
     try {
         const response = await axiosinstance.get(`tweet/user/${id}`);
-        console.log(response.data.data);
         return response.data.data;
     } catch (error) {
          console.log(error);
     }
 
 })
+
+
+export const deletetweet = createAsyncThunk('/create/tweet', async(id) => {
+    try {
+        const response = await axiosinstance.delete(`/tweet/${id}`);
+        return response.data.data;
+       
+     } catch (error) {
+        console.log(error);
+     }
+})
+
+export const updatetweet = createAsyncThunk('/create/tweet', async({id ,content}) => {
+    try {
+        const response = await axiosinstance.patch(`/tweet/${id}`,{
+          content : content
+        });
+        console.log("createtweet", response);
+        return response.data.data;
+       
+     } catch (error) {
+        console.log(error);
+     }
+})
+
+
+export const createtweet = createAsyncThunk('/create/tweet', async(tweet) => {
+    try {
+        const response = await axiosinstance.post(`/tweet/`,{
+          content : tweet
+        });
+        console.log("createtweet", response);
+        return response.data.data;
+       
+     } catch (error) {
+        console.log(error);
+     }
+})
+
 
 
 
